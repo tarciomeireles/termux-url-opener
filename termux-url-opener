@@ -1,0 +1,64 @@
+#!/bin/bash
+# Tarcio Meireles 2018-08-04
+# menu youtube-dl e wget para termux
+
+# Instalacao:
+# apt update && apt -y upgrade
+# termux-setup-storage
+# apt install -y python
+# pip install youtube-dl
+# apt install -y ffmpeg
+# cd /data/data/com.termux/files/home/storage/shared
+# mkdir MP3
+# mkdir -p embed/store/reborn
+# touch embed/store/reborn/.nomedia
+# mkdir ~/bin
+# 
+# o arquivo termux-url-opener deve ser instalado em: ~/bin/termux-url-opener baixe via GMail por exemplo
+# e copie/mova de /data/data/com.termux/files/home/storage/shared/Download para ~/bin
+#
+# chmod 755 ~/bin/termux-url-opener
+
+
+TEMPLATE_MP3='/data/data/com.termux/files/home/storage/shared/MP3/%(title)s.%(ext)s'
+TEMPLATE_VID='/data/data/com.termux/files/home/storage/shared/Movies/%(title)s.%(ext)s'
+TEMPLATE_EMBED='/data/data/com.termux/files/home/storage/shared/embed/store/reborn/%(title)s.%(ext)s'
+TEMPLATE_WGET='/data/data/com.termux/files/home/storage/shared/Download'
+
+PS3='Choose a option: '
+options=("Youtube->MP3" "Youtube->Video" "Embed->Video" "Download" "Youtube-dl->update" "Sair")
+select opt in "${options[@]}"
+do
+    case $opt in
+        "Youtube->MP3")
+            echo ">>> MP3 Download from Youtube"
+			youtube-dl --extract-audio --audio-format mp3 -o $TEMPLATE_MP3 $1
+			break
+            ;;
+        "Youtube->Video")
+            echo ">>> Video Download from Youtube"
+			youtube-dl -o $TEMPLATE_VID $1
+			break
+            ;;
+		"Embed->Video")
+            echo ">>> Download Video Embed"
+			youtube-dl -o $TEMPLATE_EMBED $1
+			break
+            ;;
+        "Download")
+			echo ">>> Downloading with wget"
+			wget $1 -P $TEMPLATE_WGET
+			break
+            ;;
+		"Youtube-dl->update")
+			echo ">>> Updating youtube-dl"
+			wget $1 -P $TEMPLATE_WGET
+			break
+            ;;
+        "Sair")
+            break
+            ;;
+        *) echo "Ivalid option $REPLY";;
+    esac
+done
+echo "<<< Script done"
