@@ -1,8 +1,8 @@
 #!/bin/bash
 # Tarcio Meireles 2018-08-04
-# menu youtube-dl e wget para termux
+# menu youtube-dl and wget for termux
 
-# Instalation:
+# Installation:
 # apt update && apt -y upgrade
 # termux-setup-storage
 # apt install -y python
