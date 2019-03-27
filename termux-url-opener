@@ -2,7 +2,7 @@
 # Tarcio Meireles 2018-08-04
 # menu youtube-dl e wget para termux
 
-# Instalacao:
+# Instalation:
 # apt update && apt -y upgrade
 # termux-setup-storage
 # apt install -y python
@@ -25,8 +25,14 @@ TEMPLATE_VID='/data/data/com.termux/files/home/storage/shared/Movies/%(title)s.%
 TEMPLATE_EMBED='/data/data/com.termux/files/home/storage/shared/embed/store/reborn/%(title)s.%(ext)s'
 TEMPLATE_WGET='/data/data/com.termux/files/home/storage/shared/Download'
 
-PS3='Choose a option: '
-options=("Youtube->MP3" "Youtube->Video" "Embed->Video" "Download" "Youtube-dl->update" "Sair")
+echo "==========================="
+echo "    Termux YT Downloader   "
+echo "==========================="
+echo $1
+
+COLUMNS=12 #set columns to maximum lenght forcing break lines in options
+PS3='Choose a option: ' 
+options=("Youtube->MP3" "Youtube->Video" "Embed->Video" "Download" "Youtube-dl->update" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -52,13 +58,13 @@ do
             ;;
 		"Youtube-dl->update")
 			echo ">>> Updating youtube-dl"
-			wget $1 -P $TEMPLATE_WGET
+			pip install --upgrade youtube-dl
 			break
             ;;
-        "Sair")
+        "Quit")
             break
             ;;
-        *) echo "Ivalid option $REPLY";;
+        *) echo "Invalid option $REPLY";;
     esac
 done
 echo "<<< Script done"
