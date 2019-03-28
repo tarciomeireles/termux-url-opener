@@ -63,7 +63,12 @@ do
 			break
             ;;
 		"Youtube-dl->update")
+			echo ">>> Updating pip & youtube-dl"
+			echo ">>> Updating pip"
+			sleep 2
+			pip install --upgrade pip
 			echo ">>> Updating youtube-dl"
+			sleep 2
 			pip install --upgrade youtube-dl
 			break
             ;;
